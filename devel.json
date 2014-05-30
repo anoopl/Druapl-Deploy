@@ -1,0 +1,11 @@
+{
+"app_path":"/var/www/apps/devportal",
+"app_user":"apache",
+"app_user_group":"apache",
+"hosts":["10.10.205.74"],
+"sshkey":"~/.ssh/anoop",
+"mysql_host":"localhost",
+"mysql_database_name":"drupal_portal",
+"mysql_user":"portal_user1",
+"mysql_password":"xxxxx"
+}

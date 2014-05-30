@@ -1,0 +1,49 @@
+
+#!/usr/bin/env bash
+
+HOOK_NAME=$1
+ENV_NAME=$2
+DRUSH=/usr/local/bin/drush
+VSET="${DRUSH} vset -y"
+
+echo
+echo "* * * * * *"
+echo Executing hook ${HOOK_NAME} for environment $ENV_NAME
+echo "* * * * * *"
+echo
+echo "Drupal Status"
+echo "-----------------------------------------"
+drush status
+echo
+
+# Needed for major upgrades
+# --------------------------------------
+# Check for Drupal Upgrade
+# --------------------------------------
+#DRUPAL_CURRENT_VERSION="6.25"
+#echo ""
+#echo "Check for Drupal Upgrade"
+#echo "-----------------------------------------"
+#DRUPAL_VERSION=`drush status drupal-version --pipe`
+#echo "Drupal Version: $DRUPAL_VERSION"
+#if [ "$DRUPAL_VERSION" = "$DRUPAL_CURRENT_VERSION" ]; then
+#  echo "Drupal version ${DRUPAL_VERSION} is up to date."
+#else
+#  echo "Drupal needs upgrading from ${DRUPAL_VERSION} to ${DRUPAL_CURRENT_VERSION}."
+#  
+#fi
+#         
+         
+echo "Putting site into offline maintenance mode..."
+${DRUSH} vset --always-set site_offline 1
+${DRUSH} cache-clear all
+
+# --------------------------------------
+# Base Configuration
+# --------------------------------------
+#echo ""
+#echo "Disabling unneeded modules"
+#echo "-----------------------------------------"
+#echo ""
+#echo "Enabling  modules" 
+#echo "-----------------------------------------"
